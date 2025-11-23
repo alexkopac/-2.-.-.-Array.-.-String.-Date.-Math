@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        let shoppingList = [
+            { name: "Хліб", quantity: 1, bought: true },
+            { name: "Молоко", quantity: 2, bought: false },
+            { name: "Яблука", quantity: 5, bought: false }
+        ];
+
+
+        function displayList() {
+        
+            const sortedList = [...shoppingList].sort((a, b) => a.bought - b.bought);
+            
+            console.log("Список покупок");
+            sortedList.forEach(item => {
+                const status = item.bought ? "[x] Куплено" : "[ ] Не куплено";
+                console.log(`${status}: ${item.name} (к-сть: ${item.quantity})`);
+            });
+        }
+
+
+        function addItem(name, quantity) {
+            const existingItem = shoppingList.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity += quantity; 
+                existingItem.bought = false; 
+            } else {
+                shoppingList.push({ name, quantity, bought: false });
+            }
+            console.log(`Додано: ${name}`);
+        }
+
+
+        function buyItem(name) {
+            const item = shoppingList.find(item => item.name === name);
+            if (item) {
+                item.bought = true;
+                console.log(`Товар "${name}" позначено як куплений.`);
+            } else {
+                console.log(`Товар "${name}" не знайдено.`);
+            }
+        }
+
+
+        addItem("Сир", 1);     
+        addItem("Молоко", 3);  
+        buyItem("Яблука");      
+        displayList();
+    </script>
+    
+</body>
+</html>
